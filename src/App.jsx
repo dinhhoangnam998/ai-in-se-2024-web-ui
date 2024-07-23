@@ -1,9 +1,21 @@
 import { Box, Grid } from "@mui/material";
 import Sidebar from "./components/Sidebar";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 import Chatbox from "./components/Chatbox";
+import { useEffect } from "react";
+import { v4 } from "uuid";
 
 export default function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname == "/") {
+      const randomSessionId = v4();
+      navigate(`/chat/${randomSessionId}`);
+    }
+  }, [location.pathname]);
+
   return (
     <div>
       <Routes>
